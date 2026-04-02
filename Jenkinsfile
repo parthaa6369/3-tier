@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        PROJECT_DIR = "/home/ubuntu/3-tier"
-    }
-
     stages {
 
         stage('Checkout') {
@@ -16,10 +12,10 @@ pipeline {
         stage('Build & Deploy') {
             steps {
                 sh '''
-                cd $PROJECT_DIR
+                pwd
+                ls
 
                 docker-compose down || true
-
                 docker-compose up -d --build
                 '''
             }
