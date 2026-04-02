@@ -11,10 +11,10 @@ app.use(express.json());
 app.use(cors());
 
 const db = createPool({
-    host: process.env.MYSQL_HOST,       // matches Docker Compose
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
+    host: process.env.DB_HOST,       // matches Docker Compose
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     connectionLimit: 10, // Adjust based on your requirements
     ssl: {
         rejectUnauthorized: false

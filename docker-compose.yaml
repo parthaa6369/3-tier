@@ -1,50 +1,33 @@
 version: '3'
 
 services:
-  frontend: 
+
+  frontend:
     container_name: frontend
-    build: 
-      context: frontend/
+    build:
+      context: ./frontend
     image: frontend-image
-    ports: 
+    ports:
       - "80:80"
     depends_on:
       - backend
     networks:
-      - three-tier-net 
+      - three-tier-net
+
 
   backend:
     container_name: backend
-    build: 
-      context: backend/
+    build:
+      context: ./backend
     image: backend-image
-    ports: 
+    ports:
       - "3500:3500"
-    environment:
-      - MYSQL_HOST=db
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=mysql123
-      - MYSQL_DATABASE=school
-    depends_on:
-      - db
+    env_file:
+      - ./backend/.env
     networks:
       - three-tier-net
 
-  db:                     
-    container_name: mysql-container
-    image: mysql:8.0
-    environment:
-      - MYSQL_ROOT_PASSWORD=mysql123
-      - MYSQL_DATABASE=school
-    volumes:
-      - mysql-data:/var/lib/mysql
-    networks:
-      - three-tier-net
-
-volumes:
-  mysql-data:
 
 networks:
   three-tier-net:
-    name: three-tier-net
     driver: bridge
